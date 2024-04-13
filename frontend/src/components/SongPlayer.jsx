@@ -24,35 +24,36 @@ export function SongPlayer()
 
     useEffect(()=>{
         if(state.currentSong){
-
+            
             const audioElement = state.currentSong.audio
-            // audioElement.currentTime=0
+     
             const handleTimeUpdate = () =>{
                 const duration = parseFloat(state.currentSong.duration)
-                // console.log(duration)
+          
                 const currentTime= audioElement.currentTime;
-                // console.log(currentTime)
+            
                 const newTiming = (currentTime/duration)*100
                 inputRef.current.value = newTiming
             }
 
             const handleEndOfAudio=()=>{
-                console.log('endendedede',state.loop)
-                if(!state.songsFromPlaylist)
-                    if(state.loop){
-                        console.log('tha to',state.loop)
+
+                 
+                    if(state.loop === true){
+                        
                         state.currentSong.audio.currentTime=0
                         state.currentSong.audio.play()
-                        
+                    }
+                    else if(state.callNextOnEndOfCurrentSong === true){
+                      
+                        nextMusic(state,dispatch)
                     }else{
-                        if(state.callNextOnEndOfCurrentSong){
-                            nextMusic()
-                        }
-                        console.log('nahi tha ',state.loop)
+                      
+                        dispatch({type:"SET_CURRENT_SONG", payload:{currentSong : null }})
                         dispatch({type:"TOGGLE_PLAYING" , payload:{ isPlaying : false}})
                         state.currentSong.audio.pause()
-
                     }
+
             }
 
             audioElement?.addEventListener('timeupdate',handleTimeUpdate)
@@ -141,7 +142,7 @@ export function SongPlayer()
             <div className="h-full w-1/2 ">
                 <div className='h-1/2 w-full flex flex-row justify-center items-center gap-5'>
 
-                    <img src={loop} onClick={(e)=>toggleLoop(e)} className='hover:cursor-pointer  h-5 w-5'/>
+                    <img src={loop} onClick={toggleLoop} className='hover:cursor-pointer  h-5 w-5'/>
                     <img src={prev}  onClick={prevSongHandler} className='hover:cursor-pointer  h-5 w-5'/>
                     <img src={state.isPlaying ? pause : play} className='hover:cursor-pointer  h-8 w-8'
                         onClick={togglePlayPause}

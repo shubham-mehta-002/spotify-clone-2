@@ -47,13 +47,13 @@ export function PlaylistPage()
   
 
    const playlistMusicHandler=()=>{
-        console.log('clicked',state.allSongs)
-        // const callNextSong = true
+   
         dispatch({type:"CALL_NEXT_SONG" , payload:{callNextOnEndOfCurrentSong : true}})
         const newAudio  = new Audio(state.allSongs[0].track)
+
         const songData = {...state.allSongs[0] , audio : newAudio}
-        dispatch({type:"SET_CURRENT_SONG", payload:{currentSong : songData }})
-    console.log(songData)
+       
+  
         playMusic(state,dispatch,songData)
     }
     

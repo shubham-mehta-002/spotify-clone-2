@@ -11,8 +11,7 @@ export function AllSongsPage()
             if(response.data.success === true)
             {
                 setSongs(response.data.songs)
-                dispatch({type:"SET_ALL_SONGS" , payload:{songs : response.data.songs}})
-
+              
             }
            
         })()
