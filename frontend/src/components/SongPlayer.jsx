@@ -26,7 +26,7 @@ export function SongPlayer()
         if(state.currentSong){
             
             const audioElement = state.currentSong.audio
-     
+            
             const handleTimeUpdate = () =>{
                 const duration = parseFloat(state.currentSong.duration)
           
@@ -152,9 +152,12 @@ export function SongPlayer()
 
                    
                 </div>
-                <div className='h-1/2 w-full flex flex-col justify-center items-center'>
-                    <input type='range' ref={inputRef} onChange={handleProgressChange} min={0} max={100}  step={0.1}   className='h-1/2 w-full'/>                    
+                <div className='h-1/2 w-full flex flex-row justify-center items-center'>
+                    <input type='range' ref={inputRef} onChange={handleProgressChange} min={0} max={100}  step={0.1}   
+                    className='h-1/2 w-4/5'/>   
+          
                 </div>
+                
             </div>
             <div className="h-full w-1/4 bg-black"></div>
 

@@ -19,12 +19,9 @@ export function AddSongsToPlaylist()
                     token
                 }
             })
-            // console.log(' use effect is re rendered')
-            // console.log('addsongstoplaylist',{response})
+         
             if(response.data.success===true)
                 {   
-                    // console.log(response)
-                    // console.log(response.data.playlist.songs.map(song => song._id))
                     setSongsInPlaylist(response.data.playlist.songs)
                 }
         })()

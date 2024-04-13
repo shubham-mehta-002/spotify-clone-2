@@ -6,7 +6,7 @@ import playButton from '../images/playButton.png'
 import { useAppContext } from '../Context/appContext'
 import { nextMusic, playMusic } from "../utils/playMusic"
 import { CurrentSongContext } from "../Context/currentSongContext"
-
+import { playlistMusicHandler } from "../utils/playlistMusicHandler"
 
 export function PlaylistPage()
 {
@@ -35,33 +35,6 @@ export function PlaylistPage()
         })()
     },[playlistId])
 
-   
-
-    
-  
-//     useEffect(()=>{
-//         const audioElement = state.currentSong?.audio;
-
-//     audioElement && audioElement.addEventListener('ended',nextMusic)
-// },[state.currentSong])
-  
-
-   const playlistMusicHandler=()=>{
-   
-        dispatch({type:"CALL_NEXT_SONG" , payload:{callNextOnEndOfCurrentSong : true}})
-        const newAudio  = new Audio(state.allSongs[0].track)
-
-        const songData = {...state.allSongs[0] , audio : newAudio}
-       
-  
-        playMusic(state,dispatch,songData)
-    }
-    
-    
-
- 
-
-
     return(
         <div className='h-full w-full bg-customLightBlack text-white overflow-x-hidden overflow-y-auto'>
             <div className="h-1/3 w-full flex flex-row justify-between">
@@ -80,7 +53,7 @@ export function PlaylistPage()
             </div>
 
             {playlistData&& playlistData.songs && playlistData.songs.length !== 0 && <div className="py-3 w-1/4 flex justify-start items-center">
-                    <img src={playButton} onClick={playlistMusicHandler} className="hover:scale-105 hover:cursor-pointer ml-3 h-20 w-20"/>
+                    <img src={playButton} onClick={(e)=>playlistMusicHandler(state,dispatch)} className="hover:scale-105 hover:cursor-pointer ml-3 h-20 w-20"/>
             </div>}  
 
             <hr className="customGray m-4"/>

@@ -33,7 +33,7 @@ export function SongTiles({_id,thumbnail,name,track,artist,duration, addButton ,
         playlistId
     }
 
-
+    const durationInMinutes = `${Math.floor(duration/60)}:${Math.floor(duration%60)}`
     
 
 
@@ -151,6 +151,7 @@ export function SongTiles({_id,thumbnail,name,track,artist,duration, addButton ,
             {addButton && 
             <img src={alreadyInPlaylist ? tick : addToPlaylistButton} className='hover:cursor-pointer h-7 w-7' onClick={(e)=>toggleAddInPlaylist(e)}/>
             }
+            <span>{durationInMinutes}</span>
             <img 
                 className='hover:cursor-pointer h-6 w-6' 
                 src={isLiked? greenHeart : whiteHeart} 
