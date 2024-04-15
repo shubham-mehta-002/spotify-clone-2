@@ -56,14 +56,10 @@ router.post('/login',async(req,res)=>{
     const token = await getToken(user)
 
     
-    // res.cookie('token',token,{
-    //     httpOnly: true
-    // })
-    // console.log("fdsfdsdfsf" , res.req) // yah to hai bhaiya token
+ 
   
 
     const UserToReturn = {user , token}
-    // console.log(UserToReturn)
     delete UserToReturn.password  // or UserToReturn.password = undefined ->this is done for security reasons
     UserToReturn.__v= undefined
 

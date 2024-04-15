@@ -1,5 +1,5 @@
 import {Howl, Howler} from 'howler';
-import { SongTiles } from '../components/SongTiles';
+import { SongTiles } from '../Components/SongTiles';
 import { useAppContext } from "../Context/appContext"
 
 export const playMusic = async(state ,dispatch, songData) =>{

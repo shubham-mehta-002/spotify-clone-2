@@ -1,5 +1,5 @@
 import { useEffect , useMemo, useState } from "react"
-import {SongTiles} from '../components'
+import {SongTiles} from '../Pages'
 import axios from 'axios'
 import {useParams} from 'react-router-dom'
 import { useAppContext } from "../Context/appContext"

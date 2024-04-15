@@ -4,15 +4,13 @@
 import './index.css'
 
 import { createBrowserRouter , RouterProvider } from "react-router-dom"
-import {Login , Signup , Home , UploadSong , AllPlaylists ,LikedSongsPage,CreatePlaylist,SearchPage ,AddSongsToPlaylist ,PlaylistPage , MySongsPage ,ArtistPage ,AllSongsPage} from './components'
+import {Login , Signup , Home , UploadSong , AllPlaylists ,LikedSongsPage,CreatePlaylist,SearchPage ,AddSongsToPlaylist ,PlaylistPage , MySongsPage ,ArtistPage ,AllSongsPage} from './Pages'
 import {RootLayout} from './Layouts'
 import { useLoginContext } from './Context/loginContext'
 
 
 function App() {
   const {loginState, setLoginState} = useLoginContext()
-
- 
 
   const router= createBrowserRouter([
     {

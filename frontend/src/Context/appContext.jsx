@@ -148,9 +148,6 @@ export const AppProvider = ({children}) =>
         isPlaying:false,
         currentDuration:0,
         loop:false,
-        nextSong:false,
-        prevSong:false,
-        random:false,
         callNextOnEndOfCurrentSong:false,
         allSongs:[]
     })

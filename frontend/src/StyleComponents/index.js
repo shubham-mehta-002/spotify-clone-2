@@ -1,2 +1,2 @@
-export {TextInput} from './TextInput'
-export {PasswordInput} from './passwordInput'
+export {TextInput} from '../Components/TextInput'
+export {PasswordInput} from '../Components/passwordInput'

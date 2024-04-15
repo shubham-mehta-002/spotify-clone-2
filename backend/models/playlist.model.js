@@ -5,7 +5,7 @@ const playlistSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    thumbnail:{         // link of a cloud db
+    thumbnail:{       
         type:String,
         required:true,
         default:"https://res.cloudinary.com/dudcrgnld/image/upload/v1712435995/playlist-bg_pxfsvx.jpg"
@@ -15,8 +15,6 @@ const playlistSchema = new mongoose.Schema({
         ref:"User"
     },
     collaborators:[{
-        // type:mongoose.Schema.Types.ObjectId,
-        // ref:"User"
         type:String
     }],
     songs:[{

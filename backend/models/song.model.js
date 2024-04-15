@@ -5,11 +5,11 @@ const songSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    thumbnail:{ // link of a cloud db
+    thumbnail:{ 
         type:String,
         required:true
     },
-    track:{ // link of  a cloud db
+    track:{ 
         type:String,
         required:true
     },

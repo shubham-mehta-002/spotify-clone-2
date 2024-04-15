@@ -19,11 +19,13 @@ var cookieParser = require('cookie-parser')
 const {connectWithDb} = require('./db/connectWithDb')
 
 
-app.use(cors({
-    origin:"http://localhost:5173",
-    credentials: true,  
-}))
-app.use(cookieParser())
+app.use(cors())
+
+// {
+//     origin:"http://localhost:5174",
+//     credentials: true,  
+// }
+// app.use(cookieParser())
 
 // var opts = {}
 // opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();

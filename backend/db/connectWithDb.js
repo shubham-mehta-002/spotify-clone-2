@@ -6,11 +6,9 @@ async function connectWithDb()
     try{ 
         const connectionDetails = await mongoose.connect(mongoDB_URI)
     }
-    catch(err)
-    {
+    catch(err){
         console.log("ERROR : ",err.message)
     }
 }
-
 
 module.exports = {connectWithDb}
