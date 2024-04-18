@@ -1,17 +1,15 @@
-import greenHeart from "../images/green-heart.png";
-import whiteHeart from "../images/white-heart.png";
-import play from "../images/playButton-white.png";
-import pause from "../images/pause.png";
 import tick from "../images/Tick.png";
 import addToPlaylistButton from "../images/addToPlaylistButton.png";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAppContext } from "../Context/appContext";
 import { useNavigate } from "react-router-dom";
 import { playMusic, nextMusic, prevMusic } from "../utils/playMusic";
-import { useCurrentSongContext } from "../Context/currentSongContext";
 import { useLoginContext } from "../Context/loginContext";
+import { IoHeartSharp } from "react-icons/io5";
+import { FaPlay } from "react-icons/fa";
+import { FaPause } from "react-icons/fa";
+import { TiTick } from "react-icons/ti";
+import { IoMdAddCircleOutline } from "react-icons/io";
 
 export function SongTiles({
   _id,
@@ -141,7 +139,7 @@ export function SongTiles({
   }
 
   return (
-    <div className="hover:bg-customGray bg-customLightBlack text-white  song-tile h-16 w-full  flex flex-row justify-between items-center gap-4 px-4 rounded-lg">
+    <div className="hover:bg-customGray bg-customLightBlack text-white  song-tile h-16 w-full  flex flex-row justify-between items-center gap-4 px-4 rounded-lg m-3">
       <div className=" details h-full w-1/2 flex flex-row gap-6 items-center">
         <div className="thumbnail h-4/5 w-1/9 ml-2 flex  ">
           <img src={thumbnail} className=" h-12 w-12 rounded" />
@@ -162,31 +160,26 @@ export function SongTiles({
         </div>
       </div>
 
-      <div className=" play h-full w-1/2 flex flex-row items-center justify-end gap-5 ">
+      <div className=" play h-full w-1/2 flex flex-row items-center justify-end gap-6 ">
         {addButton && (
-          <img
-            src={alreadyInPlaylist ? tick : addToPlaylistButton}
-            className="hover:cursor-pointer h-7 w-7"
-            onClick={(e) => toggleAddInPlaylist(e)}
-          />
+         
+          alreadyInPlaylist ? 
+          <TiTick className="text-customSpotifyGreen hover:cursor-pointer h-7 w-7" onClick={(e) => toggleAddInPlaylist(e)} />
+             :
+          <IoMdAddCircleOutline className="hover:cursor-pointer h-7 w-7" onClick={(e) => toggleAddInPlaylist(e)} />
         )}
-        <span>{durationInMinutes}</span>
-        <img
-          className="hover:cursor-pointer h-6 w-6"
-          src={isLiked ? greenHeart : whiteHeart}
-          onClick={(e) => toggleLike(e)}
-        />
-        <img
-          className="hover:cursor-pointer h-6 w-6 mr-5"
-          src={
-            state.currentSong && state.currentSong._id === _id
-              ? state.isPlaying
-                ? pause
-                : play
-              : play
-          } 
-          onClick={toggleMusicPlay}
-        />
+        <span >{durationInMinutes}</span>
+       
+        
+        <IoHeartSharp className={`${isLiked ? "text-customSpotifyGreen" : "text-white-700"} hover:cursor-pointer h-6 w-6`} onClick={(e) => toggleLike(e)}/>
+        
+       
+        {
+          state.currentSong && state.currentSong._id === _id && state.isPlaying ?
+          <FaPause onClick={toggleMusicPlay} className="hover:cursor-pointer h-6 w-6 mr-5"/>
+            :
+          <FaPlay onClick={toggleMusicPlay} className="hover:cursor-pointer h-6 w-6 mr-5"/>
+        }
       </div>
     </div>
   );

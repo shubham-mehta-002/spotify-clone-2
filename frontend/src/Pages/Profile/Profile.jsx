@@ -1,7 +1,15 @@
 import {useNavigate} from 'react-router-dom'
+import { useAppContext } from '../../Context/appContext';
+
 export function Profile(){
+    const {state , dispatch} = useAppContext()
     const navigate = useNavigate();
     function logoutHandler(){
+        if(state.currentSong)
+            {
+                state.currentSong.audio.pause()
+                dispatch({type:"SET_CURRENT_SONG", payload:{currentSong : null}})
+            }
         localStorage.removeItem('token')
         navigate('/login')
     }

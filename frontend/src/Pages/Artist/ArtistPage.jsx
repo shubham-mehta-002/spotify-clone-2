@@ -2,18 +2,24 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { SongTiles } from "../../Pages";
-import playButton from "../../images/playButton.png";
 import { playlistMusicHandler } from "../../utils/playlistMusicHandler";
 import { useAppContext } from "../../Context/appContext";
 import { useLoginContext } from "../../Context/loginContext";
 import { useNavigate } from "react-router-dom";
+import { FaPauseCircle } from "react-icons/fa";
+import { FaPlayCircle } from "react-icons/fa";
 
 export function ArtistPage() {
+  const navigate = useNavigate()
+  if( ! localStorage.getItem('token')){
+    navigate('/login',{replace : true})
+  }
+
+
   const { artistId } = useParams();
   const [artistDetails, setArtistDetails] = useState();
   const { state, dispatch } = useAppContext();
   const {loginState} = useLoginContext()
-  const navigate = useNavigate()
 
   useEffect(() => {
     (async () => {
@@ -57,20 +63,22 @@ export function ArtistPage() {
           </div>
 
           {artistDetails && artistDetails.songsOwned.length !== 0 && (
-            <div className="py-3 w-1/4 flex justify-start items-center ">
-              <img
-                src={playButton}
-                onClick={(e) =>
-                    !loginState ? navigate('/login') :  
-                  playlistMusicHandler(
-                    artistDetails.songsOwned,
-                    state,
-                    dispatch
-                  )
-                }
-                className="hover:scale-105 hover:cursor-pointer ml-3 h-20 w-20"
-              />
-            </div>
+            <div className="py-3 w-1/4 flex justify-start items-center  "
+            onClick={(e) =>
+              !loginState ? navigate('/login') :  
+            playlistMusicHandler(
+              artistDetails.songsOwned,
+              state,
+              dispatch
+            )
+          }>
+          {
+          state.isPlaying ? 
+            <FaPauseCircle className="bg-customLightBlack text-customSpotifyGreen hover:scale-105 hover:cursor-pointer ml-3 h-16 w-20" />
+            :
+            <FaPlayCircle className="bg-customLightBlack text-customSpotifyGreen hover:scale-105 hover:cursor-pointer ml-3 h-16 w-20"/>  
+          }
+          </div>
           )}
 
           <hr className="customGray m-4" />

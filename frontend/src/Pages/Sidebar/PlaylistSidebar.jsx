@@ -6,32 +6,10 @@ import { useAppContext } from "../../Context/appContext";
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import heart from "../../images/green-heart.png";
+
 export function PlaylistSidebar() {
   const { state, dispatch } = useAppContext();
   const navigate = useNavigate();
-  //     useEffect(()=>{
-  //         (async ()=>{
-  //             const token = localStorage.getItem('token')
-  //             try{
-  //                 const response = await axios.get('http://localhost:3000/playlist', {
-  //                     params: {
-  //                         token
-  //                     }})
-
-  //                 const playlistData=response.data.playlists
-
-  //                 dispatch({type: "UPDATE_PLAYLIST" , payload:{playlistData}})
-  //                 // setPlaylists(playlistsData)
-
-  //             }catch(err)
-  //             {
-  //                 console.log(err)
-  //             }
-  //         })()
-  //     },[])
-  // console.log({state})
-  // console.log('playlist',{state})
-
   return (
     <div className="playlists-container h-full w-full  flex flex-col justify-start">
       {/* liked Song tile */}
@@ -52,13 +30,8 @@ export function PlaylistSidebar() {
           </div>
         </div>
 
-        {/*
-                <div className="h-full w-1/5 flex items-center justify-center "  >
-                     <img src={plus}  */}
-        {/* // onClick={addSongsToPlaylistClickHandler} */}
-        {/* className='h-6 w-6 hover:scale-125 hover:cursor-pointer ' /> 
-                </div> 
-                */}
+      
+        
       </div>
 
       {/* playlist tiles */}

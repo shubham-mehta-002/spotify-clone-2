@@ -3,9 +3,15 @@ import {useParams} from 'react-router-dom'
 import { useEffect , useState} from "react"
 import axios from 'axios'
 import { useAppContext } from "../../Context/appContext"
+import { Navigate } from "react-router-dom"
+
 
 export function AddSongsToPlaylist()
 { 
+    if( !localStorage.getItem('token')){    
+        return( <Navigate to='/login' replace={true}/> )
+    }
+    
     const {playlistId} = useParams()
     const [songsInPlaylist , setSongsInPlaylist] = useState([])
     const token = localStorage.getItem('token')

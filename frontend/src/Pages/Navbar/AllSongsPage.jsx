@@ -20,7 +20,7 @@ export function AllSongsPage() {
   return (
     <div className="all-songs m-4 flex flex-col ">
       <div className=" font-bold text-5xl mb-4 text-white flex justify-center">
-        My Songs
+        All Songs
       </div>
 
       {

@@ -1,6 +1,5 @@
-import plus from "../../images/plus.png";
 import { useNavigate } from "react-router-dom";
-import { useAppContext } from "../../Context/appContext";
+import { IoAddSharp } from "react-icons/io5";
 
 export function PlaylistTiles({ playlist }) {
   const navigate = useNavigate();
@@ -28,7 +27,7 @@ export function PlaylistTiles({ playlist }) {
           {playlist.songs.length}
           <span> songs</span>
           <span>
-            {" "}
+           
             <button className="hover:cursor-default  border-2 px-1 border-black border-solid bg-customGray rounded-full">
               {playlist.visibilityMode}
             </button>
@@ -37,11 +36,10 @@ export function PlaylistTiles({ playlist }) {
       </div>
 
       <div className="h-full w-1/5 flex items-center justify-center ">
-        <img
-          src={plus}
-          onClick={addSongsToPlaylistClickHandler}
-          className="h-6 w-6 hover:scale-125 hover:cursor-pointer "
-        />
+        
+
+        <IoAddSharp onClick={addSongsToPlaylistClickHandler} className="h-7 w-7 hover:scale-125 hover:cursor-pointer " />
+
       </div>
     </div>
   );

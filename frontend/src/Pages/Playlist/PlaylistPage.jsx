@@ -2,13 +2,16 @@ import { SongTiles } from "../../Pages";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import playButton from "../../images/playButton.png";
 import { useAppContext } from "../../Context/appContext";
-import { nextMusic, playMusic } from "../../utils/playMusic";
-import { CurrentSongContext } from "../../Context/currentSongContext";
 import { playlistMusicHandler } from "../../utils/playlistMusicHandler";
+import { FaPauseCircle } from "react-icons/fa";
+import { FaPlayCircle } from "react-icons/fa";
+import { Navigate } from "react-router-dom";
 
 export function PlaylistPage() {
+  if( !localStorage.getItem('token')){    
+    return( <Navigate to='/login' replace={true}/> )
+  }
   const [playlistData, setPlaylistData] = useState({});
   const { state, dispatch } = useAppContext();
   const { playlistId } = useParams();
@@ -61,15 +64,20 @@ export function PlaylistPage() {
       {playlistData &&
         playlistData.songs &&
         playlistData.songs.length !== 0 && (
-          <div className="py-3 w-1/4 flex justify-start items-center">
-            <img
-              src={playButton}
-              onClick={(e) =>
-                playlistMusicHandler(playlistData.songs, state, dispatch)
-              }
-              className="hover:scale-105 hover:cursor-pointer ml-3 h-20 w-20"
-            />
+          <div className="py-3 w-1/4 flex justify-start items-center"
+          onClick={(e) =>
+            playlistMusicHandler(playlistData.songs, state, dispatch)
+          }>
+        
+           
+          {
+          state.isPlaying ? 
+            <FaPauseCircle className="bg-customLightBlack text-customSpotifyGreen hover:scale-105 hover:cursor-pointer ml-3 h-16 w-20" />
+            :
+            <FaPlayCircle className="bg-customLightBlack text-customSpotifyGreen hover:scale-105 hover:cursor-pointer ml-3 h-16 w-20"/>  
+          }
           </div>
+         
         )}
 
       <hr className="customGray m-4" />

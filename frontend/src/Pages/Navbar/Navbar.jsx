@@ -4,6 +4,7 @@ import {Profile} from "../../Pages"
 import Cookies from 'js-cookie'
 import user from '../../images/user.png'
 import { useState } from 'react'
+import './navbar.css'
 export function Navbar()
 {
     const {loginState,setLoginState} = useLoginContext()
@@ -21,19 +22,13 @@ export function Navbar()
             </div>
 
             <div className='flex justify-center items-center'>
-            {!loginState && <button className="text-white opacity-100 hover:scale-110 py-3 mr-2 rounded-full px-6 font-bold text-l"><NavLink to="/signup">Sign up</NavLink></button>}
+            {!loginState && <button className={` opacity-100 hover:scale-110 py-3 mr-2 text-white rounded-full px-6 font-bold text-l`}><NavLink to="/signup">Sign up</NavLink></button>}
             
             {!loginState && <button className="hover:scale-110 py-2 mr-2 rounded-full px-6 font-bold text-l text-black bg-white border-2 border-solid border-white"><NavLink to="/login">Log in</NavLink></button>}
             
-            {/* {loginState && <button className="hover:scale-110 py-2 mr-2 rounded-full px-6 font-bold text-l text-black bg-white border-2 border-solid border-white" onClick={
-                (e)=>{
-                    console.log("on logout token :",Cookies.get('token'))
-                    Cookies.remove('token')
-                    setLoginState(false)
-                    navigate('/login')
-                }
-            }>Log out</button>} */}
-            {loginState && <button className="hover:scale-110 hover:text-white py-2 mr-2  px-4 font-bold text-l text-customGray"  ><NavLink to="create/songs">Upload Song</NavLink></button>}
+            {/*className={({isActive}) => isActive ? text-white : text-customGray}*/}
+
+            {loginState && <button className="hover:scale-110 hover:text-white py-2 mr-2  px-4 font-bold text-l text-customGray"  ><NavLink to="create/songs" >Upload Song</NavLink></button>}
             {loginState && <button className='text-white mr-5 text-2xl'>|</button>}
             {loginState && <button><img className="hover:scale-110 h-10 w-10 rounded-full bg-white"
             src={user}  

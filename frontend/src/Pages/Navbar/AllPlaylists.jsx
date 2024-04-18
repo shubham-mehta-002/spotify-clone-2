@@ -25,7 +25,10 @@ export function AllPlaylists() {
   }, []);
 
   return (
-    <div>
+    <div className="all-songs m-4 flex flex-col ">
+      <div className=" font-bold text-5xl mb-4 text-white flex justify-center">
+        All Playlists
+      </div>
       {
         playlistData ? (
         playlistData.length === 0 ? (
@@ -40,9 +43,7 @@ export function AllPlaylists() {
           </div>
         ) : (
           <div className="cards p-5 h-9/10 w-full  flex flex-col gap-4">
-            <div className=" font-bold text-5xl mb-4 text-white flex justify-center">
-              All Playlists
-            </div>
+            
             <PlaylistView cardsData={playlistData} />
           </div>
         )
