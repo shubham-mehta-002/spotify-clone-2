@@ -38,17 +38,23 @@ export const nextMusic= async(state,dispatch)=>{
      
         const index = songsList.findIndex(song => song._id === currentSong._id)
         if(index === songsList.length-1 ){
-
             if(state.callNextOnEndOfCurrentSong){
+                // state.currentSong.audio.pause()
+                // dispatch({type:"SET_CURRENT_SONG", payload:{currentSong : null }})
                 dispatch({type:"CALL_NEXT_SONG" , payload:{callNextOnEndOfCurrentSong : false}})
+                // dispatch({type:"TOGGLE_PLAYING" , payload:{ isPlaying : false}})
+            }
+            // }else{
+                state.currentSong.audio.pause()
                 dispatch({type:"SET_CURRENT_SONG", payload:{currentSong : null }})
                 dispatch({type:"TOGGLE_PLAYING" , payload:{ isPlaying : false}})
-                return 
-            }    
 
-            const song = songsList[0]
-            song.audio = new Audio(song.track)
-            playMusic(state,dispatch,song)
+            // } 
+            // state.currentSong.audio.pause()
+
+            // const song = songsList[0]
+            // song.audio = new Audio(song.track)
+            // playMusic(state,dispatch,song)
         }else{
             const song = songsList[index+1]
             song.audio = new Audio(song.track)

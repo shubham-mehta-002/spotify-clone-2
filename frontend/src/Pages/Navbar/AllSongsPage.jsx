@@ -1,12 +1,13 @@
 import { SongTiles } from "../../Components";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { LoginContext, useLoginContext } from "../../Context/loginContext";
 
 export function AllSongsPage() {
   
   const token = localStorage.getItem("token");
   const [songs, setSongs] = useState(null);
-
+  const {loginState} = useLoginContext()
   useEffect(() => {
     (async () => {
       const response = await axios.get("http://localhost:3000/song/");
@@ -18,7 +19,7 @@ export function AllSongsPage() {
 
 
   return (
-    <div className="all-songs m-4 flex flex-col ">
+    <div className="all-songs mx-2 flex flex-col ">
       <div className=" font-bold text-5xl mb-4 text-white flex justify-center">
         All Songs
       </div>
@@ -30,7 +31,7 @@ export function AllSongsPage() {
         <div className="text-white flex flex-col gap-4 items-center justify-center">
           <div className="text-4xl">No songs available</div>
         {
-            login ? 
+            loginState ? 
           <div className="text-sm">
             To create your own song, click on Upload Song in Navbar
           </div>

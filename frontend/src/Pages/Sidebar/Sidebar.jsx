@@ -60,7 +60,7 @@ export function Sidebar() {
         {/* login based */}
 
         <div className="playlist h-4/5 w-full flex flex-col rounded-lg gap-4 bg-customLightBlack overflow-x-hidden overflow-y-auto">
-          {(!loginState || !state.playlists.length) && (
+          {(!loginState || !(state.playlists && state.playlists.length)) && (
             <div className="h-2/5 w-full bg-customGray flex flex-col items-baseline p-3 rounded-lg">
               <div className="my-3 text-white font-semibold">
                 Create your first playlist

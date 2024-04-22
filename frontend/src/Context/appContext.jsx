@@ -7,29 +7,21 @@ export const useAppContext = () => useContext(appContext)
 
 function reducer(state,action)
 {
-
     switch(action.type){ 
         case "SET_PLAYLIST_INITIAL_VALUE":{
             return {...state,playlists:action.payload.playlists}
         }    
         
         case "SET_LIKED_SONGS_INITIAL_VALUE":{
-            // console.log('intial value set',{...state,likedSongs:action.payload.likedSongs})
             return {...state,likedSongs:action.payload.likedSongs}
         }  
 
         case "ADD_PLAYLIST":{  
-            // console.log('I am being called') 
             return {...state, playlists:[...state.playlists,...action.payload.playlist]}
         }
 
         case "ADD_SONG_TO_PLAYLIST":{
-            // console.log('aay')
-            // console.log()
-            // console.log('dispatch function called .....')
-            // console.log('playlist before : ',state.playlists)
             const newPlaylist = state.playlists.map((playlist)=>{
-                // console.log(playlist)
                 if(playlist._id !== action.payload.playlistId)
                     return playlist
                 else
@@ -37,7 +29,6 @@ function reducer(state,action)
             
             })
 
-            // console.log('new playlist generated ', {newPlaylist})
             return {...state,playlists:newPlaylist}
         }
 
@@ -87,7 +78,8 @@ function reducer(state,action)
         case "SET_ALL_SONGS":{
             return {
                 ...state,
-                allSongs:action.payload.songs
+                allSongs:action.payload.songs,
+                currentPlaylistId : action.payload.id
             }
         }
 
@@ -149,7 +141,8 @@ export const AppProvider = ({children}) =>
         currentDuration:0,
         loop:false,
         callNextOnEndOfCurrentSong:false,
-        allSongs:[]
+        allSongs:[],
+        currentPlaylistId:null
     })
     
     return (<appContext.Provider value={{state,dispatch}}>

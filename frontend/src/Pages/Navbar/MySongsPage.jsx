@@ -37,12 +37,12 @@ export function MySongsPage() {
 
 
   return (
-    <div className="all-songs m-4 flex flex-col ">
+    <div className="all-songs mx-2 flex flex-col ">
       <div className=" font-bold text-5xl mb-4 text-white flex justify-center">
         My Songs
       </div>
 
-      {
+      { 
         loginState ?
       songs ?
       songs.length === 0 ? 
@@ -54,11 +54,13 @@ export function MySongsPage() {
           <div className="text-sm">
             To create your own song, click on Upload Song in Navbar
           </div>
-          <div>Login to see your songs</div>
+        
     
         </div>
       ) : (
-        songs.map((song) => <SongTiles key={song._id} {...song} />)
+        <div>
+        {songs.map((song) => <SongTiles key={song._id} {...song} />)}
+        </div>
       )
       
       :

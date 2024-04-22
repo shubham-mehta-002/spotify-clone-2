@@ -1,12 +1,9 @@
 import {Sidebar ,PlaylistView,Navbar ,SongPlayer} from "../../Pages" 
 import { useLoginContext } from '../../Context/loginContext'
-import spotifyLogo from '../../images/spotifyLogo.png'
 import { Outlet } from 'react-router-dom'
 import { useAppContext } from '../../Context/appContext'
-import Cookies from 'js-cookie'
 import {useEffect} from 'react'
 import axios from 'axios'
-import { useCurrentSongContext } from '../../Context/currentSongContext';
 
 
 

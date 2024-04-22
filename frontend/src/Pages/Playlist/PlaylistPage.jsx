@@ -9,8 +9,8 @@ import { FaPlayCircle } from "react-icons/fa";
 import { Navigate } from "react-router-dom";
 
 export function PlaylistPage() {
-  if( !localStorage.getItem('token')){    
-    return( <Navigate to='/login' replace={true}/> )
+  if (!localStorage.getItem("token")) {
+    return <Navigate to="/login" replace={true} />;
   }
   const [playlistData, setPlaylistData] = useState({});
   const { state, dispatch } = useAppContext();
@@ -31,6 +31,10 @@ export function PlaylistPage() {
         );
 
         setPlaylistData(response.data.playlist);
+        dispatch({
+          type: "SET_ALL_SONGS",
+          payload: { songs: response.data.playlist.songs, id: playlistId },
+        });
       } catch (err) {
         console.log(err);
       }
@@ -64,20 +68,21 @@ export function PlaylistPage() {
       {playlistData &&
         playlistData.songs &&
         playlistData.songs.length !== 0 && (
-          <div className="py-3 w-1/4 flex justify-start items-center"
-          onClick={(e) =>
-            playlistMusicHandler(playlistData.songs, state, dispatch)
-          }>
-        
-           
-          {
-          state.isPlaying ? 
-            <FaPauseCircle className="bg-customLightBlack text-customSpotifyGreen hover:scale-105 hover:cursor-pointer ml-3 h-16 w-20" />
-            :
-            <FaPlayCircle className="bg-customLightBlack text-customSpotifyGreen hover:scale-105 hover:cursor-pointer ml-3 h-16 w-20"/>  
+          <div
+            className="py-3 w-1/4 flex justify-start items-center"
+            onClick={(e) =>
+              playlistMusicHandler(playlistData.songs, state, dispatch)
+            }
+          >
+            {state.currentPlaylistId === playlistId ? (state.isPlaying ? (
+              <FaPauseCircle className="bg-customLightBlack text-customSpotifyGreen hover:scale-105 hover:cursor-pointer ml-3 h-16 w-20" />
+            ) : (
+              <FaPlayCircle className="bg-customLightBlack text-customSpotifyGreen hover:scale-105 hover:cursor-pointer ml-3 h-16 w-20" />
+            ) ): (
+              <FaPlayCircle className="bg-customLightBlack text-customSpotifyGreen hover:scale-105 hover:cursor-pointer ml-3 h-16 w-20" />
+            )
           }
           </div>
-         
         )}
 
       <hr className="customGray m-4" />
@@ -85,7 +90,12 @@ export function PlaylistPage() {
       <div className=" h-1/3 w-full">
         {playlistData.songs && playlistData.songs.length !== 0 ? (
           playlistData.songs.map((song) => (
-            <SongTiles key={song._id} {...song} allSongs={playlistData.songs} />
+            <SongTiles
+              key={song._id}
+              {...song}
+              allSongs={playlistData.songs}
+              playlistId={playlistData._id}
+            />
           ))
         ) : (
           <div className="text-white flex flex-col gap-4 items-center justify-center">

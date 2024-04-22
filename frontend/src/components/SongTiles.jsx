@@ -1,5 +1,3 @@
-import tick from "../images/Tick.png";
-import addToPlaylistButton from "../images/addToPlaylistButton.png";
 import axios from "axios";
 import { useAppContext } from "../Context/appContext";
 import { useNavigate } from "react-router-dom";
@@ -40,7 +38,7 @@ export function SongTiles({
     duration,
     audio: newAudio,
   };
-
+  console.log({playlistId})
   const token = localStorage.getItem("token");
   const songId = _id;
   const songBody = {
@@ -54,13 +52,11 @@ export function SongTiles({
   )}`;
 
   async function addToPlaylistHandler(e) {
-  
     const response = await axios.post(
       "http://localhost:3000/playlist/add/song",
       songBody
     );
     if (response.data.success === true) {
-     
       e.stopPropagation(); // Stop event propagation to prevent parent div click
       dispatch({
         type: "ADD_SONG_TO_PLAYLIST",
@@ -70,7 +66,6 @@ export function SongTiles({
   }
 
   async function removeFromPlaylist(e) {
-    
     const response = await axios.post(
       "http://localhost:3000/playlist/remove/song",
       {
@@ -79,7 +74,7 @@ export function SongTiles({
         token,
       }
     );
-  
+
     if (response.data.success === true) {
       e.stopPropagation(); // Stop event propagation to prevent parent div click
       dispatch({
@@ -87,18 +82,15 @@ export function SongTiles({
         payload: { playlistId, songId },
       });
     }
- 
   }
 
   async function addToLikedSongsHandler(e) {
     try {
-    
       const response = await axios.post("http://localhost:3000/song/like", {
         songId,
         token,
       });
 
-      
       if (response.data.success === true) {
         e.stopPropagation(); // Stop event propagation to prevent parent div click
         dispatch({ type: "ADD_TO_LIKED_SONGS", payload: { songId: _id } });
@@ -141,12 +133,12 @@ export function SongTiles({
   return (
     <div className="hover:bg-customGray bg-customLightBlack text-white  song-tile h-16 w-full  flex flex-row justify-between items-center gap-4 px-4 rounded-lg m-3">
       <div className=" details h-full w-1/2 flex flex-row gap-6 items-center">
-        <div className="thumbnail h-4/5 w-1/9 ml-2 flex  ">
+        <div className="thumbnail h-4/5 w-1/9 ml-2 flex ">
           <img src={thumbnail} className=" h-12 w-12 rounded" />
         </div>
         <div className="h-full w-1/2 flex flex-col justify-center items-center ">
           <div className=" h-1/3 w-full whitespace-nowrap overflow-hidden text-ellipsis  text-lg font-semibold">
-            <span  className="h-full flex items-center ">{name}</span>
+            <span className="h-full flex items-center ">{name}</span>
           </div>
 
           <div className="h-1/3 w-full whitespace-nowrap overflow-hidden text-ellipsis ">
@@ -161,25 +153,40 @@ export function SongTiles({
       </div>
 
       <div className=" play h-full w-1/2 flex flex-row items-center justify-end gap-6 ">
-        {addButton && (
-         
-          alreadyInPlaylist ? 
-          <TiTick className="text-customSpotifyGreen hover:cursor-pointer h-7 w-7" onClick={(e) => toggleAddInPlaylist(e)} />
-             :
-          <IoMdAddCircleOutline className="hover:cursor-pointer h-7 w-7" onClick={(e) => toggleAddInPlaylist(e)} />
+        {addButton &&
+          (alreadyInPlaylist ? (
+            <TiTick
+              className="text-customSpotifyGreen hover:cursor-pointer h-7 w-7"
+              onClick={(e) => toggleAddInPlaylist(e)}
+            />
+          ) : (
+            <IoMdAddCircleOutline
+              className="hover:cursor-pointer h-7 w-7"
+              onClick={(e) => toggleAddInPlaylist(e)}
+            />
+          ))}
+        <span>{durationInMinutes}</span>
+
+        <IoHeartSharp
+          className={`${
+            isLiked ? "text-customSpotifyGreen" : "text-white-700"
+          } hover:cursor-pointer h-6 w-6`}
+          onClick={(e) => toggleLike(e)}
+        />
+
+        {state.currentSong &&
+        state.currentSong._id === _id &&
+        state.isPlaying ? (
+          <FaPause
+            onClick={toggleMusicPlay}
+            className="hover:cursor-pointer h-6 w-6 mr-5"
+          />
+        ) : (
+          <FaPlay
+            onClick={toggleMusicPlay}
+            className="hover:cursor-pointer h-6 w-6 mr-5"
+          />
         )}
-        <span >{durationInMinutes}</span>
-       
-        
-        <IoHeartSharp className={`${isLiked ? "text-customSpotifyGreen" : "text-white-700"} hover:cursor-pointer h-6 w-6`} onClick={(e) => toggleLike(e)}/>
-        
-       
-        {
-          state.currentSong && state.currentSong._id === _id && state.isPlaying ?
-          <FaPause onClick={toggleMusicPlay} className="hover:cursor-pointer h-6 w-6 mr-5"/>
-            :
-          <FaPlay onClick={toggleMusicPlay} className="hover:cursor-pointer h-6 w-6 mr-5"/>
-        }
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ export function Profile(){
             {
                 state.currentSong.audio.pause()
                 dispatch({type:"SET_CURRENT_SONG", payload:{currentSong : null}})
+                dispatch({type:"TOGGLE_PLAYING", payload:{isPlating: false}})
             }
         localStorage.removeItem('token')
         navigate('/login')
